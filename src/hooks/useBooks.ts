@@ -86,7 +86,10 @@ export const useBooks = ({
           url = `https://dummyjson.com/products/category/${selectedCategory}`;
         }
 
-        const booksResponse = await fetch(`${url}?limit=${limit}&skip=${skip}`);
+        const separator = url.includes("?") ? "&" : "?";
+        const booksResponse = await fetch(
+          `${url}${separator}limit=${limit}&skip=${skip}`
+        );
         if (!booksResponse.ok) throw new Error("Gagal mengambil data buku.");
         const booksData: BooksApiResponse = await booksResponse.json();
 
